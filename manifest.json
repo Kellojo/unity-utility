@@ -1,1 +1,13 @@
-
+{
+  "name": "com.kellojo.unity-utility",
+  "version": "1.0.0",
+  "displayName": "Kellojo's Unity Utility",
+  "description": "This is Kellojo's C# Utility Library, containing some useful extensions & utilities",
+  "unity": "2019.1",
+  "dependencies": { },
+  "author": {
+    "name": "Kellojo",
+    "email": "kellojo1@gmail.com",
+    "url": "https://github.com/Kellojo"
+  }
+}
