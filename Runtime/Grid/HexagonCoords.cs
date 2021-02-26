@@ -48,14 +48,17 @@ namespace Kellojo.Grid {
         [SerializeField]
         public int r;
 
+        public float radius;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Settworks.Hexagons.HexagonCoords"/> struct.
         /// </summary>
         /// <param name="q">Position on the q axis.</param>
         /// <param name="r">Position on the r axis.</param>
-        public HexagonCoords(int q, int r) {
+        public HexagonCoords(int q, int r, float radius = 5f) {
             this.q = q;
             this.r = r;
+            this.radius = radius;
         }
 
         /// <summary>
@@ -84,7 +87,7 @@ namespace Kellojo.Grid {
         /// Unity position of this hex.
         /// </summary>
         public Vector2 Position() {
-            return q * Q_XY + r * R_XY;
+            return (q * Q_XY + r * R_XY) * radius;
         }
 
         /// <summary>
