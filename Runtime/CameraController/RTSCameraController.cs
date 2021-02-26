@@ -16,15 +16,14 @@ namespace Kellojo.CameraController {
         public float FastSpeed = 5;
         public float MovementTime = 5;
         private float MovementSpeed;
+        public bool EnableMousePaning = true;
 
         public float RotationAmount = 5f;
         public float RotationTime = 5;
 
         public float minY = 0;
         public float maxY = 15;
-        public Vector3 ZoomAmount;
-
-
+        public Vector3 ZoomAmount = new Vector3(0, -5, 5);
 
 
         private Vector3 newPosition;
@@ -62,6 +61,28 @@ namespace Kellojo.CameraController {
 
         void HandleMouseInput() {
 
+            // dragging via mouse
+            if (Input.GetMouseButtonDown(0) && EnableMousePaning) {
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                float entry;
+
+                if (plane.Raycast(ray, out entry)) {
+                    dragStartPosition = ray.GetPoint(entry);
+                }
+            }
+            if (Input.GetMouseButton(0) && EnableMousePaning) {
+                Plane plane = new Plane(Vector3.up, Vector3.zero);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                float entry;
+
+                if (plane.Raycast(ray, out entry)) {
+                    dragCurrentPosition = ray.GetPoint(entry);
+                    newPosition = transform.position + dragStartPosition - dragCurrentPosition;
+                }
+            }
+
+            // zooming
             if (Input.mouseScrollDelta.y != 0) {
                 newZoom += Input.mouseScrollDelta.y * ZoomAmount;
             }
