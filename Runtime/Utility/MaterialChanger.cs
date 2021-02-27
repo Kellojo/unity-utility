@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Kellojo.Utility {
 
     public class MaterialChanger {
         private GameObject gameObject;
-        private Dictionary<MeshRenderer, Material> defaultMaterials = new Dictionary<MeshRenderer, Material>();
+        private Dictionary<MeshRenderer, Material[]> defaultMaterials = new Dictionary<MeshRenderer, Material[]>();
 
         public MaterialChanger(GameObject gameObject) {
             this.gameObject = gameObject;
@@ -14,23 +15,33 @@ namespace Kellojo.Utility {
             StoreDefaultMaterials();
         }
 
+        /// <summary>
+        /// Stores the default materials on all mesh renderers
+        /// </summary>
         private void StoreDefaultMaterials() {
             defaultMaterials.Clear();
-            MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>();
+            MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
             foreach (MeshRenderer mr in meshRenderers) {
-                defaultMaterials.Add(mr, mr.material);
+                defaultMaterials.Add(mr, mr.materials);
             }
         }
 
+        /// <summary>
+        /// Set's a material on all mesh renderers
+        /// </summary>
+        /// <param name="material"></param>
         public void SetMaterialOnAllMeshRenderers(Material material) {
             foreach (MeshRenderer mr in defaultMaterials.Keys) {
-                mr.material = material;
+                mr.materials = Enumerable.Repeat(material, mr.materials.Length).ToArray(); ;
             }
         }
 
+        /// <summary>
+        /// restores the default material on all mesh renderers
+        /// </summary>
         public void RestoreDefaultMaterials() {
             foreach (MeshRenderer mr in defaultMaterials.Keys) {
-                mr.material = defaultMaterials[mr];
+                mr.materials = defaultMaterials[mr];
             }
         }
     }

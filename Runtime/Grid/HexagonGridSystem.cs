@@ -6,9 +6,6 @@ using UnityEngine;
 namespace Kellojo.Grid {
     public class HexagonGridSystem : MonoBehaviour{
 
-        public const float outerRadius = 1;
-        public const float innerRadius = outerRadius * 0.866025404f;
-
         [SerializeField] protected HexagonCell CellPrefab;
         [SerializeField] protected List<HexagonCell> cells;
 

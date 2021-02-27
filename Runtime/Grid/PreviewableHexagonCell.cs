@@ -21,11 +21,8 @@ namespace Kellojo.Grid {
             get { return isPreview; }
             set {
                 isPreview = value;
-
-                if (isPreview) {
-                    materialChanger.SetMaterialOnAllMeshRenderers(previewMaterial);
-                } else {
-                    materialChanger.RestoreDefaultMaterials();
+                if (materialChanger != null) {
+                    ApplyPreviewMaterials();
                 }
             }
         }
@@ -34,8 +31,9 @@ namespace Kellojo.Grid {
 
         MaterialChanger materialChanger;
 
-        private void Awake() {
+        protected void Start() {
             materialChanger = new MaterialChanger(gameObject);
+            ApplyPreviewMaterials();
         }
 
 
@@ -57,7 +55,7 @@ namespace Kellojo.Grid {
         }
 
         public void OnPointerClick(PointerEventData eventData) {
-            if (!isPreview) {
+            if (!isPreview || eventData.button != PointerEventData.InputButton.Left) {
                 return;
             }
 
@@ -77,6 +75,14 @@ namespace Kellojo.Grid {
             if (tween != null) {
                 tween.Kill();
                 tween = null;
+            }
+        }
+
+        void ApplyPreviewMaterials() {
+            if (isPreview) {
+                materialChanger.SetMaterialOnAllMeshRenderers(previewMaterial);
+            } else {
+                materialChanger.RestoreDefaultMaterials();
             }
         }
     }

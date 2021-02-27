@@ -99,6 +99,16 @@ namespace Kellojo.Grid {
         }
 
         /// <summary>
+        /// Get's a random position inside the hexagon
+        /// </summary>
+        /// <returns></returns>
+        public Vector3 RandomPosition3DOnHexagon() {
+            float innerRadius = radius * 0.866025404f;
+            Vector2 pos = UnityEngine.Random.insideUnitCircle * innerRadius;
+            return new Vector3(pos.x, 0, pos.y);
+        }
+
+        /// <summary>
         /// Get the maximum absolute cubic coordinate.
         /// </summary>
         /// <remarks>
