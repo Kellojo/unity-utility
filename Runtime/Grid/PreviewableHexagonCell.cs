@@ -24,6 +24,9 @@ namespace Kellojo.Grid {
                 if (materialChanger != null) {
                     ApplyPreviewMaterials();
                 }
+                if (!isPreview) {
+                    OnExitPreview?.Invoke(this);
+                }
             }
         }
         public Action<PreviewableHexagonCell> OnExitPreview;
@@ -37,7 +40,7 @@ namespace Kellojo.Grid {
         }
 
 
-        public void OnPointerEnter(PointerEventData eventData) {
+        public virtual void OnPointerEnter(PointerEventData eventData) {
             if (!isPreview) {
                 return;
             }
@@ -45,7 +48,7 @@ namespace Kellojo.Grid {
             AbortCurrentTween();
             tween = transform.DOLocalMoveY(HOVER_HEIGHT, 0.25f).SetEase(Ease.OutCubic);
         }
-        public void OnPointerExit(PointerEventData eventData) {
+        public virtual void OnPointerExit(PointerEventData eventData) {
             if (!isPreview) {
                 return;
             }
@@ -54,28 +57,27 @@ namespace Kellojo.Grid {
             tween = transform.DOLocalMoveY(0, 0.25f).SetEase(Ease.OutCubic);
         }
 
-        public void OnPointerClick(PointerEventData eventData) {
-            if (!isPreview || eventData.button != PointerEventData.InputButton.Left) {
+        public virtual void OnPointerClick(PointerEventData eventData) {
+            if (!isPreview || (eventData != null && eventData.button != PointerEventData.InputButton.Left)) {
                 return;
             }
 
-            // abort highlight tween
-            AbortCurrentTween();
             IsPreview = false;
-            OnExitPreview?.Invoke(this);
-
-            // animation
-            Sequence sequence = DOTween.Sequence();
-            sequence.Join(transform.DOLocalJump(new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 1, 0.25f).SetEase(Ease.OutCubic));
-            sequence.Join(transform.DOPunchScale(Vector3.one * 0.25f, 0.25f));
+            PlayExitPreviewAnimation();
         }
 
 
-        void AbortCurrentTween() {
+        protected void AbortCurrentTween() {
             if (tween != null) {
                 tween.Kill();
                 tween = null;
             }
+        }
+        protected void PlayExitPreviewAnimation() {
+            AbortCurrentTween();
+            Sequence sequence = DOTween.Sequence();
+            sequence.Join(transform.DOLocalJump(new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 1, 0.25f).SetEase(Ease.OutCubic));
+            sequence.Join(transform.DOPunchScale(Vector3.one * 0.25f, 0.25f));
         }
 
         void ApplyPreviewMaterials() {

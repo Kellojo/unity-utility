@@ -19,7 +19,6 @@ namespace Kellojo.Grid {
         }
 
         void PopulateHexagon() {
-            Debug.Log("spawning stuff");
             foreach (Spawnable spawnable in Biome.spawnables) {
                 for (int i = 0; i < spawnable.maxCount; i++) {
                     GameObject obj = spawnable.Instantiate();
