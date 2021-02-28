@@ -8,8 +8,10 @@ using Kellojo.Utility;
 namespace Kellojo.Grid {
     public class PreviewableBiomeHexagonCell : PreviewableHexagonCell {
         protected Biome Biome;
-        [SerializeField] protected List<Biome> Biomes;
 
+        [Header("Spawnables")]
+        [SerializeField] protected List<Biome> Biomes;
+        [SerializeField, Layer] protected int SpawnableLayer;
 
         protected void Start() {
             Biome = Biomes.PickRandom();
@@ -24,6 +26,7 @@ namespace Kellojo.Grid {
                     GameObject obj = spawnable.Instantiate();
                     obj.transform.SetParent(transform);
                     obj.transform.localPosition = coordinates.RandomPosition3DOnHexagon();
+                    obj.SetLayerRecursively(SpawnableLayer);
                 }
             }
         }

@@ -15,17 +15,25 @@ namespace Kellojo.Grid {
         TweenerCore<Vector3, Vector3, DG.Tweening.Plugins.Options.VectorOptions> tween = null;
 
         [SerializeField] Material previewMaterial;
+        [SerializeField] MeshCollider Collider;
 
         bool isPreview = false;
         public bool IsPreview {
             get { return isPreview; }
             set {
                 isPreview = value;
-                if (materialChanger != null) {
-                    ApplyPreviewMaterials();
+
+                // Update collider
+                if (Collider.convex) {
+                    Collider.isTrigger = value;
                 }
-                if (!isPreview) {
-                    OnExitPreview?.Invoke(this);
+                Collider.convex = value;
+                Collider.isTrigger = value;
+
+                if (isPreview) {
+                    OnPreviewEnter();
+                } else {
+                    OnPreviewExit();
                 }
             }
         }
@@ -66,6 +74,13 @@ namespace Kellojo.Grid {
             PlayExitPreviewAnimation();
         }
 
+        protected virtual void OnPreviewEnter() {
+            ApplyPreviewMaterials();
+        }
+        protected virtual void OnPreviewExit() {
+            OnExitPreview?.Invoke(this);
+            ApplyPreviewMaterials();
+        }
 
         protected void AbortCurrentTween() {
             if (tween != null) {
@@ -81,6 +96,10 @@ namespace Kellojo.Grid {
         }
 
         void ApplyPreviewMaterials() {
+            if (materialChanger == null) {
+                return;
+            }
+
             if (isPreview) {
                 materialChanger.SetMaterialOnAllMeshRenderers(previewMaterial);
             } else {

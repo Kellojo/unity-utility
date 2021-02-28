@@ -28,10 +28,28 @@ namespace Kellojo.Utility {
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source) {
             return source.OrderBy(x => Guid.NewGuid());
         }
+
+        /// <summary>
+        /// Get's the world position of the mouse from a given camera
+        /// True, if hit something, false otherwise
+        /// </summary>
+        /// <param name="camera"></param>
+        public static bool GetMouseWorldPosition(this Camera camera, ref RaycastHit hit, LayerMask layerMask, float maxDistance = 9999f) {
+            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            return Physics.Raycast(ray, out hit, maxDistance, layerMask);
+        }
+
+        /// <summary>
+        /// Set's the layer recursively on a gameObject
+        /// </summary>
+        /// <param name="gameObject"></param>
+        /// <param name="layer"></param>
+        public static void SetLayerRecursively(this GameObject gameObject, int layer) {
+            foreach (Transform trans in gameObject.GetComponentsInChildren<Transform>(true)) {
+                trans.gameObject.layer = layer;
+            }
+        }
+
     }
-
-
-
-
 }
 
