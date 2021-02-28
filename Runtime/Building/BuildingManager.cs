@@ -10,7 +10,6 @@ namespace Kellojo.Building {
 
     public class BuildingManager : MonoBehaviour {
 
-
         
         [SerializeField] List<BuildingType> BuildingTypes;
         [SerializeField] LayerMask PlacementPositionLayerMask;
