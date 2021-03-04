@@ -27,6 +27,11 @@ namespace Kellojo.Grid {
                     obj.transform.SetParent(transform);
                     obj.transform.localPosition = coordinates.RandomPosition3DOnHexagon();
                     obj.SetLayerRecursively(SpawnableLayer);
+
+                    SpawnableInstance instance = obj.GetComponent<SpawnableInstance>();
+                    if (instance != null) {
+                        instance.HexagonCell = this;
+                    }
                 }
             }
         }
