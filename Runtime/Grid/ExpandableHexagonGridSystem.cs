@@ -8,6 +8,22 @@ namespace Kellojo.Grid {
 
         protected List<HexagonCell> expansionOptions = new List<HexagonCell>();
         new PreviewableHexagonCell CellPrefab;
+        /// <summary>
+        /// How many cells are currently active and not in preview state?
+        /// </summary>
+        public int ActiveCellCount {
+            get {
+                int count = 0;
+                foreach (HexagonCell cell in cells) {
+                    PreviewableHexagonCell previewableHexagonCell = (PreviewableHexagonCell)cell;
+                    if (!previewableHexagonCell.IsPreview) {
+                        count++;
+                    }
+                }
+
+                return count;
+            }
+        }
 
         private void Awake() {
             CreateCell(0, 0);

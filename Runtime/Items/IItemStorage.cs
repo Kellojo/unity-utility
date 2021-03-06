@@ -7,6 +7,7 @@ namespace Kellojo.Items {
     public interface IItemStorage {
 
         bool TryStoreItem(Item item);
+        Item PeekItem();
         Item TryGetItem();
 
     }

@@ -11,6 +11,11 @@ namespace Kellojo.Building.Modes {
         protected SegmentedBuilding SegmentedBuilding;
         protected MaterialChanger segmentMaterialChanger;
         int index;
+        float snapDistance = .5f;
+        bool isPlacedOnSnapPoint;
+
+        List<ISnapPoint> snapPoints;
+        ISnapPoint currentSnapPoint;
 
         public SplineBasedBuildingMode(
             BuildingType BuildingType,
@@ -21,6 +26,7 @@ namespace Kellojo.Building.Modes {
             int previewLayer
         ) : base(BuildingType, validMaterial, invalidMaterial, placementPositionLayerMask, checkMask, previewLayer) {
             SegmentedBuilding = CurrentBuilding.GetComponent<SegmentedBuilding>();
+            snapPoints = new List<ISnapPoint>();
             GetNextSegment();
         }
 
@@ -47,17 +53,59 @@ namespace Kellojo.Building.Modes {
         }
 
         public override void UpdatePreview(Camera camera) {
-            currentSegment.transform.position = GetPlacementPosition(camera, currentSegment.transform.position);
+            Vector3 mousePosition = GetPlacementPosition(camera, currentSegment.transform.position);
+
+            Transform snapPoint = GetClosestSnapPoint(mousePosition);
+            isPlacedOnSnapPoint = snapPoint != null;
+            if (snapPoint != null) {
+                currentSegment.transform.position = snapPoint.position;
+                currentSegment.transform.rotation = snapPoint.rotation;
+                currentSnapPoint = snapPoint.GetComponent<ISnapPoint>();
+            } else {
+                currentSegment.transform.position = mousePosition;
+                currentSnapPoint = null;
+            }
+            
+            if (CanSpawnBuilding(currentSegment, currentSegment.transform.position) || snapPoint != null) {
+                segmentMaterialChanger.SetMaterialOnAllMeshRenderers(validMaterial);
+            } else {
+                segmentMaterialChanger.SetMaterialOnAllMeshRenderers(invalidMaterial);
+            }
         }
         public override void RotatePreview(float rotationStep) {
             Vector3 target = currentSegment.transform.rotation.eulerAngles;
             target.y += rotationStep;
-            currentSegment.transform.DORotate(target, 0.75f).SetEase(Ease.OutElastic);
+            currentSegment.transform.DORotate(target, 0.25f).SetEase(Ease.OutCubic);
         }
         public override bool PlaceBuilding() {
-            //return base.PlaceBuilding();
-            GetNextSegment();
+            if (isPlacedOnSnapPoint) {
+                snapPoints.Add(currentSnapPoint);
+            }
+
+            // if this is not the first segment, complete the placement
+            if (index > 0 && isPlacedOnSnapPoint) {
+                SegmentedBuilding.OnSegmentPlaced(currentSegment, index);
+                snapPoints.ForEach(snapPoint => snapPoint.OnConnectBuilding(SegmentedBuilding));
+                SegmentedBuilding.OnBuildingPlaced();
+                return true;
+            } else {
+                GetNextSegment();
+            }
+            
             return false;
+        }
+
+        protected Transform GetClosestSnapPoint(Vector3 position) {
+            Collider[] possibleSnapPoints = Physics.OverlapSphere(position, snapDistance);
+
+            foreach(Collider coll in possibleSnapPoints) {
+                ISnapPoint snapPoint = coll.GetComponent<ISnapPoint>();
+                if (snapPoint != null && !snapPoint.IsOccupied()) {
+                    return coll.transform;
+                }
+            }
+
+            return null;
         }
     }
 }

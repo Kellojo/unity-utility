@@ -43,7 +43,7 @@ namespace Kellojo.Building.Modes {
         public virtual void RotatePreview(float rotationStep) {
             Vector3 target = CurrentBuilding.transform.rotation.eulerAngles;
             target.y += rotationStep;
-            CurrentBuilding.transform.DORotate(target, 0.75f).SetEase(Ease.OutElastic);
+            CurrentBuilding.transform.DORotate(target, 0.25f).SetEase(Ease.OutCubic);
         }
         public virtual bool PlaceBuilding() {
             if (CanSpawnBuilding(CurrentBuilding, CurrentBuilding.transform.position)) {

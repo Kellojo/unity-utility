@@ -5,6 +5,7 @@ using UnityEngine;
 namespace Kellojo.Grid {
     public class HexagonCell : MonoBehaviour {
         public HexagonCoords coordinates;
+        public HexagonGridSystem GridSystem;
 
 
         private void OnDrawGizmos() {

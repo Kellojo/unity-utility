@@ -22,6 +22,7 @@ namespace Kellojo.Grid {
         /// <param name="i"></param>
         public HexagonCell CreateCell(int x, int z) {
             HexagonCell cell = Instantiate(CellPrefab);
+            cell.GridSystem = this;
             cell.coordinates = new HexagonCoords(x, z);
             cell.transform.SetParent(transform, false);
             cell.transform.localPosition = cell.coordinates.Position3D();
