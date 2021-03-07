@@ -16,9 +16,8 @@ namespace Kellojo.Building {
             SplineExtruder.enabled = false;
         }
 
-        public virtual void OnBuildingPlaced() {
-            
-        }
+        public void OnStartBuilding() { }
+        public virtual void OnBuildingPlaced() { }
         public void OnSegmentPlaced(GameObject segment, int index) {
             Transform splineTarget = segment.GetComponent<TransformTarget>().Target;
             Vector3 position = segment.transform.localPosition + splineTarget.localPosition;

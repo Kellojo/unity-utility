@@ -50,6 +50,19 @@ namespace Kellojo.Utility {
             }
         }
 
+        /// <summary>
+        /// Get's a quaternion with a random y rotation
+        /// </summary>
+        /// <param name="quaternion"></param>
+        /// <returns></returns>
+        public static Quaternion RandomYRotation() {
+            return Quaternion.Euler(new Vector3(
+                0,
+                UnityEngine.Random.Range(0, 360f),  
+                0
+            ));
+        }
+
     }
 }
 

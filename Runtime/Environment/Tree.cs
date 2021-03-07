@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 namespace Kellojo.Environment {
-    public class Tree : SpawnableInstance {
+    public class Tree : DepleatingSpawnableInstance {
 
     }
 

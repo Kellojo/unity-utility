@@ -8,18 +8,21 @@ namespace Kellojo.Environment {
     public class Spawnable {
         public GameObject Prefab;
 
-        public float minScale = 1f;
-        public float maxScale = 1f;
+        public Vector2 Scale = new Vector2(1, 1);
+        public Vector2 countRange = new Vector2(1, 1);
 
-        public int maxCount = 5;
 
 
         public GameObject Instantiate() {
             GameObject obj = Object.Instantiate(Prefab);
-            float scale = Random.Range(minScale, maxScale);
+            float scale = Random.Range(Scale.x, Scale.y);
             obj.transform.localScale = new Vector3(scale, scale, scale);
 
             return obj;
+        }
+
+        public int GetCount() {
+            return Mathf.RoundToInt(Random.Range(countRange.x, countRange.y));
         }
 
     }

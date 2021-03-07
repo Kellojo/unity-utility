@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 namespace Kellojo.Grid {
-    public class HexagonGridSystem : MonoBehaviour{
+    public class HexagonGridSystem : MonoBehaviour {
 
         [SerializeField] protected HexagonCell CellPrefab;
         [SerializeField] protected List<HexagonCell> cells;

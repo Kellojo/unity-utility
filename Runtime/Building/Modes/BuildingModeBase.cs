@@ -28,6 +28,11 @@ namespace Kellojo.Building.Modes {
             CurrentBuilding = BuildingType.Instantiate();
             CurrentBuilding.SetLayerRecursively(previewLayer);
             materialChanger = new MaterialChanger(CurrentBuilding);
+
+            IBuildable buildable = CurrentBuilding.GetComponent<IBuildable>();
+            if (buildable != null) {
+                buildable.OnStartBuilding();
+            }
         }
 
         public virtual void UpdatePreview(Camera camera) {

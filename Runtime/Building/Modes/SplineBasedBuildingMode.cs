@@ -84,6 +84,7 @@ namespace Kellojo.Building.Modes {
 
             // if this is not the first segment, complete the placement
             if (index > 0 && isPlacedOnSnapPoint) {
+                segmentMaterialChanger.RestoreDefaultMaterials();
                 SegmentedBuilding.OnSegmentPlaced(currentSegment, index);
                 snapPoints.ForEach(snapPoint => snapPoint.OnConnectBuilding(SegmentedBuilding));
                 SegmentedBuilding.OnBuildingPlaced();

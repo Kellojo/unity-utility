@@ -9,6 +9,7 @@ namespace Kellojo.Items {
 
         public new string name;
         [SerializeField] protected GameObject Prefab;
+        [SerializeField] public float BurnTime = 0;
 
         /// <summary>
         /// Instantiates a visual instance of the item

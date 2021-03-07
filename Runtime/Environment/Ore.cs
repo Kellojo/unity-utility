@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Kellojo.Environment {
-    public class Bush : DepleatingSpawnableInstance {
+    public class Ore : DepleatingSpawnableInstance {
 
     }
-
 }
+
 

@@ -7,6 +7,10 @@ namespace Kellojo.Building {
     public interface IBuildable {
 
         /// <summary>
+        /// Called, when building begins
+        /// </summary>
+        void OnStartBuilding();
+        /// <summary>
         /// Called, when the building gets placed and leaves the preview.
         /// </summary>
         void OnBuildingPlaced();
