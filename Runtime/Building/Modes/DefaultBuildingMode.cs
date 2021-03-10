@@ -7,12 +7,13 @@ namespace Kellojo.Building.Modes {
 
         public DefaultBuildingMode(
             BuildingType BuildingType,
+            Quaternion rotation,
             Material validMaterial,
             Material invalidMaterial,
             LayerMask placementPositionLayerMask,
             LayerMask checkMask,
             int previewLayer
-        ) : base(BuildingType, validMaterial, invalidMaterial, placementPositionLayerMask, checkMask, previewLayer) {
+        ) : base(BuildingType, rotation, validMaterial, invalidMaterial, placementPositionLayerMask, checkMask, previewLayer) {
 
         }
 

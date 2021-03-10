@@ -17,7 +17,7 @@ namespace Kellojo.Building.Modes {
         protected LayerMask placementCheckLayerMask;
         protected int previewLayer;
 
-        public BuildingModeBase(BuildingType BuildingType, Material validMaterial, Material invalidMaterial, LayerMask positionMask, LayerMask checkMask, int previewLayer) {
+        public BuildingModeBase(BuildingType BuildingType, Quaternion previousRotation, Material validMaterial, Material invalidMaterial, LayerMask positionMask, LayerMask checkMask, int previewLayer) {
             this.BuildingType = BuildingType;
             this.validMaterial = validMaterial;
             this.invalidMaterial = invalidMaterial;
@@ -25,7 +25,7 @@ namespace Kellojo.Building.Modes {
             placementCheckLayerMask = checkMask;
             this.previewLayer = previewLayer;
 
-            CurrentBuilding = BuildingType.Instantiate();
+            CurrentBuilding = BuildingType.Instantiate(previousRotation);
             CurrentBuilding.SetLayerRecursively(previewLayer);
             materialChanger = new MaterialChanger(CurrentBuilding);
 
@@ -93,6 +93,10 @@ namespace Kellojo.Building.Modes {
             };
 
             return position;
+        }
+
+        public Quaternion GetRotation() {
+            return CurrentBuilding.transform.rotation;
         }
     }
 }

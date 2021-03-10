@@ -11,8 +11,10 @@ namespace Kellojo.Building {
         [SerializeField] GameObject Prefab;
         [SerializeField] EBuildingMode BuildingMode = EBuildingMode.Default;
 
-        public GameObject Instantiate() {
-            return Instantiate(Prefab);
+        public GameObject Instantiate(Quaternion rotation) {
+            GameObject obj = Instantiate(Prefab);
+            obj.transform.rotation = rotation;
+            return obj;
         }
         public EBuildingMode GetBuildingMode() { return BuildingMode; }
 

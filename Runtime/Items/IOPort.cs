@@ -6,20 +6,25 @@ using UnityEngine;
 namespace Kellojo.Items {
     public class IOPort : MonoBehaviour, ISnapPoint {
 
+        [SerializeField] protected GameObject indicatorInwards;
+        [SerializeField] protected GameObject indicatorOutwards;
+
         IItemStorage Owner;
         public IItemStorage ConnectedStorage;
 
         bool isOccupied = false;
 
-        bool acceptsItems;
-        bool sendsItems;
+        public bool acceptsItems;
+        public bool sendsItems;
 
-        public void SetOwner(IItemStorage owner, bool acceptsItems, bool sendsItems) {
+        public void SetOwner(IItemStorage owner) {
             Owner = owner;
-            this.acceptsItems = acceptsItems;
-            this.sendsItems = sendsItems;
         }
 
+        private void Awake() {
+            indicatorInwards.SetActive(acceptsItems);
+            indicatorOutwards.SetActive(sendsItems);
+        }
         private void Update() {
             if (ConnectedStorage != null && Owner != null) {
                 if (sendsItems && Owner.PeekItem() != null) {

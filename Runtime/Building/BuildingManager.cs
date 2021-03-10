@@ -22,6 +22,7 @@ namespace Kellojo.Building {
         BuildingModeBase buildingMode;
         new Camera camera;
         int previewLayer;
+        Quaternion rotation = Quaternion.identity;
 
         protected void Awake() {
             camera = Camera.main;
@@ -36,18 +37,10 @@ namespace Kellojo.Building {
             buildingMode?.AbortBuilding();
 
             if (buildingType.GetBuildingMode() == EBuildingMode.Default) {
-                buildingMode = new DefaultBuildingMode(buildingType, PreviewMaterialValid, PreviewMaterialInvalid, PlacementPositionLayerMask, PlacementCheckLayerMask, previewLayer);
+                buildingMode = new DefaultBuildingMode(buildingType, rotation, PreviewMaterialValid, PreviewMaterialInvalid, PlacementPositionLayerMask, PlacementCheckLayerMask, previewLayer);
             } else if (buildingType.GetBuildingMode() == EBuildingMode.SplineBased) {
-                buildingMode = new SplineBasedBuildingMode(buildingType, PreviewMaterialValid, PreviewMaterialInvalid, PlacementPositionLayerMask, PlacementCheckLayerMask, previewLayer);
+                buildingMode = new SplineBasedBuildingMode(buildingType, rotation, PreviewMaterialValid, PreviewMaterialInvalid, PlacementPositionLayerMask, PlacementCheckLayerMask, previewLayer);
             }
-
-            
-
-            /*Building building = currentBuilding.GetComponent<Building>();
-            if (buildingType.GetBuildingMode() == EBuildingMode.SplineBased) {
-                SegmentedBuilding segmentedBuilding = (SegmentedBuilding)building;
-                currentSegment = segmentedBuilding.RequestNewSegment();
-            }*/
         }
         protected void OnRotatePreview() {
             buildingMode?.RotatePreview(RotationStep);
@@ -58,6 +51,7 @@ namespace Kellojo.Building {
         }
         protected void PlaceBuilding() {
             if (buildingMode != null && buildingMode.PlaceBuilding()) {
+                rotation = buildingMode.GetRotation();
                 buildingMode = null;
             }
         }

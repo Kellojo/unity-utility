@@ -19,19 +19,20 @@ namespace Kellojo.Building.Modes {
 
         public SplineBasedBuildingMode(
             BuildingType BuildingType,
+            Quaternion rotation,
             Material validMaterial,
             Material invalidMaterial,
             LayerMask placementPositionLayerMask,
             LayerMask checkMask,
             int previewLayer
-        ) : base(BuildingType, validMaterial, invalidMaterial, placementPositionLayerMask, checkMask, previewLayer) {
+        ) : base(BuildingType, rotation, validMaterial, invalidMaterial, placementPositionLayerMask, checkMask, previewLayer) {
             SegmentedBuilding = CurrentBuilding.GetComponent<SegmentedBuilding>();
+            CurrentBuilding.transform.rotation = Quaternion.identity;
             snapPoints = new List<ISnapPoint>();
-            GetNextSegment();
+            GetNextSegment(rotation);
         }
 
-        void GetNextSegment() {
-            Quaternion previousRotation = Quaternion.identity;
+        void GetNextSegment(Quaternion rotation) {
             if (currentSegment != null) {
                 if (index == 0) {
                     Vector3 position = currentSegment.transform.position;
@@ -39,14 +40,13 @@ namespace Kellojo.Building.Modes {
                     currentSegment.transform.position = position;
                 }
 
-                previousRotation = currentSegment.transform.rotation;
                 SegmentedBuilding.OnSegmentPlaced(currentSegment, index);
                 index++;
             }
 
             currentSegment = SegmentedBuilding.RequestNewSegment();
             currentSegment.SetLayerRecursively(previewLayer);
-            currentSegment.transform.rotation = previousRotation;
+            currentSegment.transform.rotation = rotation;
 
             segmentMaterialChanger?.RestoreDefaultMaterials();
             segmentMaterialChanger = new MaterialChanger(currentSegment);
@@ -90,7 +90,7 @@ namespace Kellojo.Building.Modes {
                 SegmentedBuilding.OnBuildingPlaced();
                 return true;
             } else {
-                GetNextSegment();
+                GetNextSegment(currentSegment.transform.rotation);
             }
             
             return false;
