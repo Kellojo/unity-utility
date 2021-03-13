@@ -63,6 +63,17 @@ namespace Kellojo.Utility {
             ));
         }
 
+        /// <summary>
+        /// Rotates the rotation on the y axis for 180 degrees (esentially invertign it's direction)
+        /// </summary>
+        /// <param name="rotation"></param>
+        /// <returns></returns>
+        public static Quaternion GetInvertedYRotation(this Quaternion rotation) {
+            Vector3 angles = rotation.eulerAngles;
+            angles.y += 180f;
+            return Quaternion.Euler(angles);
+        }
+
     }
 }
 

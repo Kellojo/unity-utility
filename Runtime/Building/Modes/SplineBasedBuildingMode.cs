@@ -59,7 +59,7 @@ namespace Kellojo.Building.Modes {
             isPlacedOnSnapPoint = snapPoint != null;
             if (snapPoint != null) {
                 currentSegment.transform.position = snapPoint.position;
-                currentSegment.transform.rotation = snapPoint.rotation;
+                currentSegment.transform.rotation = index == 0 ? snapPoint.rotation : snapPoint.rotation.GetInvertedYRotation();
                 currentSnapPoint = snapPoint.GetComponent<ISnapPoint>();
             } else {
                 currentSegment.transform.position = mousePosition;

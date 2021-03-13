@@ -24,6 +24,7 @@ namespace Kellojo.CameraController {
         public float minY = 0;
         public float maxY = 15;
         public Vector3 ZoomAmount = new Vector3(0, -5, 5);
+        public bool EnableKeyboardZoom = false;
 
 
         private Vector3 newPosition;
@@ -125,10 +126,10 @@ namespace Kellojo.CameraController {
                 newRotation *= Quaternion.Euler(Vector3.up * -RotationAmount);
             }
 
-            if (Input.GetKey(KeyCode.R)) {
+            if (Input.GetKey(KeyCode.R) && EnableKeyboardZoom) {
                 newZoom += ZoomAmount;
             }
-            if (Input.GetKey(KeyCode.F)) {
+            if (Input.GetKey(KeyCode.F) && EnableKeyboardZoom) {
                 newZoom -= ZoomAmount;
             }
 
