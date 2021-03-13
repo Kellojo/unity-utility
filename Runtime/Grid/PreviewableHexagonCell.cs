@@ -93,6 +93,10 @@ namespace Kellojo.Grid {
             Sequence sequence = DOTween.Sequence();
             sequence.Join(transform.DOLocalJump(new Vector3(transform.position.x, 0, transform.position.z), 0.1f, 1, 0.25f).SetEase(Ease.OutCubic));
             sequence.Join(transform.DOPunchScale(Vector3.one * 0.25f, 0.25f));
+            sequence.OnComplete(() => {
+                transform.DOScale(Vector3.one, 0);
+                transform.DOLocalMoveY(0, 0);
+            });
         }
 
         void ApplyPreviewMaterials() {

@@ -22,7 +22,7 @@ namespace Kellojo.Utility {
             defaultMaterials.Clear();
             MeshRenderer[] meshRenderers = gameObject.GetComponentsInChildren<MeshRenderer>(true);
             foreach (MeshRenderer mr in meshRenderers) {
-                defaultMaterials.Add(mr, mr.materials);
+                defaultMaterials.Add(mr, mr.sharedMaterials);
             }
         }
 
@@ -41,7 +41,7 @@ namespace Kellojo.Utility {
         /// </summary>
         public void RestoreDefaultMaterials() {
             foreach (MeshRenderer mr in defaultMaterials.Keys) {
-                mr.materials = defaultMaterials[mr];
+                mr.sharedMaterials = defaultMaterials[mr];
             }
         }
     }
