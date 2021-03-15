@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -72,6 +73,18 @@ namespace Kellojo.Utility {
             Vector3 angles = rotation.eulerAngles;
             angles.y += 180f;
             return Quaternion.Euler(angles);
+        }
+
+
+        public static void Show(this CanvasGroup canvasGroup, bool withoutAnimation = false) {
+            canvasGroup.DOFade(1, withoutAnimation ? 0 : 0.25f).SetEase(Ease.OutCubic);
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
+        }
+        public static void Hide(this CanvasGroup canvasGroup, bool withoutAnimation = false) {
+            canvasGroup.DOFade(0, withoutAnimation ? 0 : 0.25f).SetEase(Ease.OutCubic);
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
         }
 
     }

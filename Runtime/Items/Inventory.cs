@@ -21,6 +21,8 @@ namespace Kellojo.Items {
 
             return false;
         }
+
+        public Dictionary<Item, int>.KeyCollection Items => Storage.Keys;
     }
 
 }
