@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Kellojo.Items;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,20 +7,21 @@ using UnityEngine;
 namespace Kellojo.Building {
 
     [CreateAssetMenu(menuName = "Kellojo/Building/Building Type")]
-    public class BuildingType : ScriptableObject {
+    public class BuildingType : Item {
 
-        [SerializeField] GameObject Prefab;
+        [Header("Building Settings")]
+        [SerializeField] GameObject BuildingPrefab;
         [SerializeField] EBuildingMode BuildingMode = EBuildingMode.Default;
 
         public GameObject Instantiate(Quaternion rotation) {
-            GameObject obj = Instantiate(Prefab);
+            GameObject obj = Instantiate(BuildingPrefab);
             obj.transform.rotation = rotation;
             return obj;
         }
         public EBuildingMode GetBuildingMode() { return BuildingMode; }
 
         public Collider GetCollider() {
-            return Prefab.GetComponent<Collider>();
+            return BuildingPrefab.GetComponent<Collider>();
         }
     }
 

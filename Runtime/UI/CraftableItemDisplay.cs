@@ -20,11 +20,10 @@ namespace Kellojo.UI {
                 Destroy(child.gameObject);
             }
 
-            foreach (Item item in Item.GetAllItems()) {
+            foreach (Item item in Item.GetAllCraftableItems()) {
                 GameObject itemTile = Instantiate(ItemTilePrefab, Grid.transform);
                 ItemTile tile = itemTile.GetComponent<ItemTile>();
-                tile.SetItem(item, 0);
-
+                tile.SetItem(item, 0, null, null, null);
             }
         }
 

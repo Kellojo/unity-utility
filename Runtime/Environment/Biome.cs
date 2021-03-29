@@ -10,10 +10,14 @@ namespace Kellojo.Environment {
         public new string name;
         public Material Ground;
         public List<Spawnable> spawnables;
-        public Spawnable Particles;
+
+        [Header("Particle Settings")]
+        [SerializeField] protected Spawnable Particles;
+        [SerializeField, Range(0, 1)] protected float ParticleSpawnRate = 0.1f;
 
         public GameObject InstantiateParticles(Transform parent) {
-            if (Particles != null && Particles.Prefab != null) {
+            float r = Random.Range(0f, 1f);
+            if (Particles != null && Particles.Prefab != null && Random.Range(0f, 1f) <= ParticleSpawnRate) {
                 GameObject obj = Particles.Instantiate();
                 obj.transform.SetParent(parent);
                 obj.transform.localPosition = Vector3.zero;

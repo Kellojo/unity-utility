@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,6 +13,33 @@ namespace Kellojo.Items {
         [SerializeField] public Sprite Icon;
         [SerializeField] protected GameObject Prefab;
         [SerializeField] public float BurnTime = 0;
+
+        private List<Recepie> Recepies {
+            get {
+                return Recepie.GetAllRecepiesResultingIn(this).ToList();
+            }
+        }
+
+        public bool IsCraftable {
+            get {
+                bool isCraftable = Recepies.Any(recepie => recepie.RecepieTye == ERecepieTye.Crafting);
+                return Recepies.Count > 0 && isCraftable;
+            }
+        }
+        public bool IsSmeltable {
+            get {
+                bool isSmeltable = Recepies.Any(recepie => recepie.RecepieTye == ERecepieTye.Smelting);
+                return Recepies.Count > 0 && isSmeltable;
+            }
+        }
+
+        /// <summary>
+        /// Get's the first recepie, where this item can be smelted
+        /// </summary>
+        /// <returns></returns>
+        public Recepie GetSmeltingRecepie() {
+            return Recepies.Find(recepie => recepie.RecepieTye == ERecepieTye.Smelting);
+        }
 
         /// <summary>
         /// Instantiates a visual instance of the item
@@ -43,6 +71,22 @@ namespace Kellojo.Items {
             }
 
             return a;
+        }
+        /// <summary>
+        /// Get's all items available in the project
+        /// </summary>
+        /// <returns></returns>
+        public static Item[] GetAllCraftableItems() {
+            Item[] items = GetAllItems();
+            List<Item> craftables = new List<Item>();
+
+            foreach (Item item in items) {
+                if (item.IsCraftable) {
+                    craftables.Add(item);
+                }
+            }
+
+            return craftables.ToArray();
         }
     }
 
