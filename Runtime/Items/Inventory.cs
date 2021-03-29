@@ -181,6 +181,13 @@ namespace Kellojo.Items {
         }
 
         public Dictionary<Item, int>.KeyCollection Items => Storage.Keys;
+
+
+        public string FillStatus {
+            get {
+                return OccupiedSize + "/" + size;
+            }
+        }
     }
 
 }
