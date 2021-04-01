@@ -5,6 +5,9 @@ using DG.Tweening;
 using Kellojo.Utility;
 using UnityEngine.Events;
 using Kellojo.InputSystem;
+using TinyMessenger;
+using Kellojo.Events;
+using System.Runtime.Remoting.Messaging;
 
 namespace Kellojo.UI {
     /// <summary>
@@ -51,6 +54,7 @@ namespace Kellojo.UI {
         }
 
         public void Open() {
+            EventBus.Publish(new MenuOpenedMessage());
             OnOpen?.Invoke();
             ScaleAnimationTarget.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0);
             ScaleAnimationTarget.DOScale(Vector3.one, 0.25f);
@@ -58,6 +62,7 @@ namespace Kellojo.UI {
             isOpen = true;
         }
         public void Close(bool withoutAnimation = false) {
+            EventBus.Publish(new MenuClosedMessage());
             OnClose?.Invoke();
             CanvasGroup.Hide(withoutAnimation);
             ScaleAnimationTarget.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.25f);
@@ -71,6 +76,13 @@ namespace Kellojo.UI {
         }
 
 
+
+        public class MenuOpenedMessage : ITinyMessage {
+            public object Sender => throw new System.NotImplementedException();
+        }
+        public class MenuClosedMessage : ITinyMessage {
+            public object Sender => throw new System.NotImplementedException();
+        }
 
     }
 }
