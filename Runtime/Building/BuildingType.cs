@@ -12,6 +12,7 @@ namespace Kellojo.Building {
         [Header("Building Settings")]
         [SerializeField] GameObject BuildingPrefab;
         [SerializeField] EBuildingMode BuildingMode = EBuildingMode.Default;
+        [SerializeField] public int ScoreValue = 1;
 
         public GameObject Instantiate(Quaternion rotation) {
             GameObject obj = Instantiate(BuildingPrefab);

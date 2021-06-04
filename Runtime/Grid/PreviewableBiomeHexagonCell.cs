@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Kellojo.Utility;
-
+using Zenject;
 
 namespace Kellojo.Grid {
     public class PreviewableBiomeHexagonCell : PreviewableHexagonCell {
@@ -13,6 +13,12 @@ namespace Kellojo.Grid {
         [Header("Spawnables")]
         [SerializeField] protected List<Biome> Biomes;
         [SerializeField, Layer] protected int SpawnableLayer;
+        [Inject] GrassRenderer GrassRenderer;
+
+        protected void Awake() {
+            gameObject.AddComponent<ZenAutoInjecter>();
+        }
+
 
         protected void Start() {
             meshRenderer = GetComponent<MeshRenderer>();
@@ -25,6 +31,11 @@ namespace Kellojo.Grid {
         void PopulateHexagon() {
             meshRenderer.sharedMaterial = Biome.Ground;
             Biome.InstantiateParticles(transform);
+
+            if (Biome.GrassConfig.RenderGrass) {
+                GrassRenderer.AddRenderingConfig(Biome.GrassConfig, GrassRenderer.GeneratePositionsForHexagon(Biome.GrassConfig, transform.position, coordinates.innerRadius));
+            }
+            
 
             foreach (Spawnable spawnable in Biome.spawnables) {
                 int count = spawnable.GetCount();

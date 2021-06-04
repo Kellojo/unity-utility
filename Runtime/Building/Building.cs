@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Kellojo.Building {
     public class Building : MonoBehaviour, IBuildable {
@@ -15,6 +16,9 @@ namespace Kellojo.Building {
             }
         }
 
+        protected void Awake() {
+            gameObject.AddComponent<ZenAutoInjecter>();      
+        }
         public virtual void OnBuildingPlaced() {
             Invoke("OnBuildingAvailableForInteraction", 0.5f);
         }

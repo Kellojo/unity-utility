@@ -49,6 +49,11 @@ namespace Kellojo.Grid {
         public int r;
 
         public float radius;
+        public float innerRadius {
+            get {
+                return radius * 0.866025404f;
+            }
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Settworks.Hexagons.HexagonCoords"/> struct.

@@ -25,7 +25,7 @@ namespace Kellojo.Grid {
             }
         }
 
-        private void Awake() {
+        private void Start() {
             CreateCell(0, 0);
 
             UpdateExpansionOptions();

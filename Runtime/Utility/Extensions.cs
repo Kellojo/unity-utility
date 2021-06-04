@@ -65,7 +65,7 @@ namespace Kellojo.Utility {
         }
 
         /// <summary>
-        /// Rotates the rotation on the y axis for 180 degrees (esentially invertign it's direction)
+        /// Rotates the rotation on the y axis for 180 degrees (esentially inverting it's direction)
         /// </summary>
         /// <param name="rotation"></param>
         /// <returns></returns>
@@ -85,6 +85,13 @@ namespace Kellojo.Utility {
             canvasGroup.DOFade(0, withoutAnimation ? 0 : 0.25f).SetEase(Ease.OutCubic);
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
+        }
+        public static void Toggle(this CanvasGroup canvasGroup, bool visible) {
+            if (visible) {
+                Show(canvasGroup);
+            } else {
+                Hide(canvasGroup);
+            }
         }
 
     }

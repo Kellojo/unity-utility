@@ -10,6 +10,7 @@ namespace Kellojo.Environment {
         public new string name;
         public Material Ground;
         public List<Spawnable> spawnables;
+        public GrassRenderingConfig GrassConfig;
 
         [Header("Particle Settings")]
         [SerializeField] protected Spawnable Particles;
@@ -27,6 +28,10 @@ namespace Kellojo.Environment {
             return null;
         }
 
+
+        void Update() {
+
+        }
 
     }
 

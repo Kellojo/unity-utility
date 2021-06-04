@@ -20,7 +20,7 @@ namespace Kellojo.UI {
         CanvasGroup CanvasGroup;
         GenericInput inputActions;
 
-        public UnityEvent OnOpen;
+        public UnityEvent<Menu> OnOpen;
         public UnityEvent OnClose;
 
         bool isOpen;
@@ -55,7 +55,7 @@ namespace Kellojo.UI {
 
         public void Open() {
             EventBus.Publish(new MenuOpenedMessage());
-            OnOpen?.Invoke();
+            OnOpen?.Invoke(this);
             ScaleAnimationTarget.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0);
             ScaleAnimationTarget.DOScale(Vector3.one, 0.25f);
             CanvasGroup.Show();
