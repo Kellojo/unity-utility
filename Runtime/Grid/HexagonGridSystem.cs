@@ -10,7 +10,7 @@ namespace Kellojo.Grid {
         [SerializeField] protected List<HexagonCell> cells;
 
 
-        private void Awake() {
+        protected virtual void Awake() {
             cells = new List<HexagonCell>();
         }
 

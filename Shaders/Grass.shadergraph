@@ -823,7 +823,7 @@
     "overrideHLSLDeclaration": false,
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
-    "m_Value": 1.0,
+    "m_Value": 0.5,
     "m_FloatType": 0,
     "m_RangeValues": {
         "x": 0.0,
@@ -1023,7 +1023,7 @@
     },
     "m_Name": "Main Texture",
     "m_DefaultReferenceName": "Texture2D_E9DE861",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_MainTexture",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -1882,7 +1882,7 @@
     },
     "m_Name": "Hue Offset",
     "m_DefaultReferenceName": "Vector1_D4DC9532",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_HueOffset",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -2089,7 +2089,7 @@
 }
 
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "7b5a2f332b229e808927855b2f5081df",
     "m_Guid": {
@@ -2097,7 +2097,7 @@
     },
     "m_Name": "Emission",
     "m_DefaultReferenceName": "Color_A2C0788",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_Emission",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -2544,7 +2544,7 @@
 }
 
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "949cb9b3d286e488a37babba66dffd74",
     "m_Guid": {
@@ -2559,9 +2559,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 1.0,
-        "g": 1.0,
-        "b": 1.0,
+        "r": 0.5529412031173706,
+        "g": 0.6117647290229797,
+        "b": 0.24705882370471955,
         "a": 1.0
     },
     "m_ColorMode": 0
@@ -2727,7 +2727,7 @@
 }
 
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "9e4c58cb3fd55785a4ff38b244cd1dc3",
     "m_Guid": {
@@ -2742,9 +2742,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.615686297416687,
-        "g": 1.0,
-        "b": 0.0,
+        "r": 0.529411792755127,
+        "g": 0.5490196347236633,
+        "b": 0.41960784792900088,
         "a": 1.0
     },
     "m_ColorMode": 0
@@ -3036,7 +3036,7 @@
     },
     "m_Name": "Wind Speed",
     "m_DefaultReferenceName": "Vector1_62149567",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_WindSpeed",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -3059,7 +3059,7 @@
     },
     "m_Name": "Wind Strength",
     "m_DefaultReferenceName": "Vector1_DE77B961",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_WindStrength",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -3184,7 +3184,7 @@
     },
     "m_Name": "Wind Scale",
     "m_DefaultReferenceName": "Vector1_2A7895AA",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_WindScale",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
@@ -3231,7 +3231,7 @@
 }
 
 {
-    "m_SGVersion": 2,
+    "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "d996692306401e8785345925410d1261",
     "m_Guid": {
@@ -3246,9 +3246,9 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "r": 0.5254902243614197,
-        "g": 0.6039215922355652,
-        "b": 0.0,
+        "r": 0.9490196108818054,
+        "g": 0.8549019694328308,
+        "b": 0.34117648005485537,
         "a": 1.0
     },
     "m_ColorMode": 0

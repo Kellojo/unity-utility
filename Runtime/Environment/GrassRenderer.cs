@@ -28,15 +28,13 @@ namespace Kellojo.Environment {
             renderingConfigs.Add(new KeyValuePair<GrassRenderingConfig, Matrix4x4[]>(config, matrix4X4s));
         }
 
-        public static Matrix4x4[] GeneratePositionsForHexagon(GrassRenderingConfig config, Vector3 positionOffset, float radius) {
+        public static Matrix4x4[] GeneratePositionsForHexagon(GrassRenderingConfig config, MeshCollider meshCollider) {
             Matrix4x4[] matrix4X4s = new Matrix4x4[config.Count];
 
             for (int i = 0; i < config.Count; i++) {
-                Vector2 circlePos = Random.insideUnitCircle;
-                Vector3 position = new Vector3(circlePos.x, 0, circlePos.y) * radius;
-                position += positionOffset;
+                Vector3 position = meshCollider.RandomPointOnSurface();
+                position.y = 0;
                 Vector3 scale = Vector3.one * Random.Range(config.MinScale, config.MaxScale);
-
                 matrix4X4s[i] = Matrix4x4.TRS(position, Extensions.RandomYRotation(), scale);
             }
 

@@ -28,11 +28,6 @@ namespace Kellojo.Environment {
             return null;
         }
 
-
-        void Update() {
-
-        }
-
     }
 
 }

@@ -25,9 +25,11 @@ namespace Kellojo.Grid {
             }
         }
 
-        private void Start() {
-            CreateCell(0, 0);
+        PreviewableHexagonCell initialCell;
 
+        private void Start() {
+            initialCell = (PreviewableHexagonCell)CreateCell(0, 0);
+            initialCell.IsPreview = false;
             UpdateExpansionOptions();
         }
 
@@ -77,7 +79,6 @@ namespace Kellojo.Grid {
         }
     
         protected void InstantiateExpansionPreview(HexagonCoords coordinates) {
-            //Vector2 offsetCoordinates = coordinates.ToOffsetCoordinates();
             PreviewableHexagonCell cell = (PreviewableHexagonCell)CreateCell(coordinates.q, coordinates.r);
             cell.IsPreview = true;
             cell.OnExitPreview += OnCellExitsPreview;

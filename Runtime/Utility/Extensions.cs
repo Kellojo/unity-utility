@@ -94,6 +94,39 @@ namespace Kellojo.Utility {
             }
         }
 
+        /// <summary>
+        /// Get's a random point in some bounds
+        /// </summary>
+        /// <param name="bounds"></param>
+        /// <returns></returns>
+        public static Vector3 RandomPointInBounds(this Bounds bounds) {
+            return new Vector3(
+                UnityEngine.Random.Range(bounds.min.x, bounds.max.x),
+                UnityEngine.Random.Range(bounds.min.y, bounds.max.y),
+                UnityEngine.Random.Range(bounds.min.z, bounds.max.z)
+            );
+        }
+
+        /// <summary>
+        /// Get's a random point on the surface
+        /// </summary>
+        /// <param name="meshCollider"></param>
+        /// <returns></returns>
+        public static Vector3 RandomPointOnSurface(this MeshCollider meshCollider) {
+            int iterations = 0;
+            while (true) {
+                iterations++;
+
+                Vector3 randomPoint = meshCollider.bounds.RandomPointInBounds();
+                randomPoint.y += meshCollider.bounds.max.y + 1;
+                Ray ray = new Ray(randomPoint, Vector3.down);
+                RaycastHit hit;
+                if (meshCollider.Raycast(ray, out hit, meshCollider.bounds.max.y + 100)) {
+                    return hit.point;
+                }
+            }
+        }
+
     }
 }
 
