@@ -14,11 +14,14 @@ namespace Kellojo.Grid {
         [Header("Spawnables")]
         [SerializeField] protected List<Biome> Biomes;
         [SerializeField, Layer] protected int SpawnableLayer;
+
+
         [Inject] GrassRenderer GrassRenderer;
 
         protected void Awake() {
             meshCollider = GetComponent<MeshCollider>();
             gameObject.AddComponent<ZenAutoInjecter>();
+
             Biome = Biomes.PickRandom();
         }
 

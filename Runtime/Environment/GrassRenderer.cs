@@ -13,7 +13,6 @@ namespace Kellojo.Environment {
 
         // Update is called once per frame
         void Update() {
-
             foreach(KeyValuePair<GrassRenderingConfig, Matrix4x4[]> keyValue in renderingConfigs) {
                 Graphics.DrawMeshInstanced(keyValue.Key.GrassMesh, 0, keyValue.Key.GrassMaterial, keyValue.Value, keyValue.Value.Length, null, ShadowCastingMode);
             }
