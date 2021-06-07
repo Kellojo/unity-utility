@@ -27,7 +27,7 @@ namespace Kellojo.Utility {
             return source.Shuffle().Take(count);
         }
         public static IEnumerable<T> Shuffle<T>(this IEnumerable<T> source) {
-            return source.OrderBy(x => Guid.NewGuid());
+            return source.OrderBy(x => UnityEngine.Random.value);
         }
 
         /// <summary>
