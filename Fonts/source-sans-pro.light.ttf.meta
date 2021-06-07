@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6256dad49425e8e40a1f789507332e15
+guid: 43b1e32b195738744b35efcedd7b7e61
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - TimeBurner
+  - Source Sans Pro
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
