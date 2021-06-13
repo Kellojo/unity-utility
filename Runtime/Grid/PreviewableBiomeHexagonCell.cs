@@ -59,7 +59,13 @@ namespace Kellojo.Grid {
             base.OnPreviewExit();
 
             if (Biome.GrassConfig.RenderGrass) {
-                GrassRenderer.AddRenderingConfig(Biome.GrassConfig, GrassRenderer.GeneratePositionsForHexagon(Biome.GrassConfig, meshCollider));
+                Dictionary<GrassRenderingConfig.GrassTypeConfig, Matrix4x4[]> positions = new Dictionary<GrassRenderingConfig.GrassTypeConfig, Matrix4x4[]>();
+                foreach (var type in Biome.GrassConfig.GrassTypes) {
+                    positions[type] = GrassRenderer.GeneratePositionsForHexagon(type, meshCollider);
+                }
+
+                GrassRenderer.AddRenderingConfig(Biome.GrassConfig, positions);
+
             }
         }
 

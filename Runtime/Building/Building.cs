@@ -17,7 +17,10 @@ namespace Kellojo.Building {
         }
 
         protected void Awake() {
-            gameObject.AddComponent<ZenAutoInjecter>();      
+               
+        }
+        protected void Start() {
+            gameObject.AddComponent<ZenAutoInjecter>();
         }
         public virtual void OnBuildingPlaced() {
             Invoke("OnBuildingAvailableForInteraction", 0.5f);

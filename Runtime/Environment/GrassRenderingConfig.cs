@@ -8,11 +8,16 @@ namespace Kellojo.Environment {
     public class GrassRenderingConfig {
 
         [SerializeField] public bool RenderGrass = true;
-        [SerializeField] public Mesh GrassMesh;
-        [SerializeField] public Material GrassMaterial;
-        [SerializeField] public int Count = 100;
-        [SerializeField] public float MinScale = 0.5f;
-        [SerializeField] public float MaxScale = 1f;
+        [SerializeField] public List<GrassTypeConfig> GrassTypes;
+
+        [System.Serializable]
+        public class GrassTypeConfig {
+            [SerializeField] public Mesh GrassMesh;
+            [SerializeField] public Material GrassMaterial;
+            [SerializeField] public int Count = 100;
+            [SerializeField] public float MinScale = 0.5f;
+            [SerializeField] public float MaxScale = 1f;
+        }
     }
 }
 

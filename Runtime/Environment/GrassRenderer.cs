@@ -7,14 +7,17 @@ using UnityEngine.Rendering;
 namespace Kellojo.Environment {
     public class GrassRenderer : MonoBehaviour {
 
-        List<KeyValuePair<GrassRenderingConfig, Matrix4x4[]>> renderingConfigs = new List<KeyValuePair<GrassRenderingConfig, Matrix4x4[]>>();
+        List<KeyValuePair<GrassRenderingConfig, Dictionary<GrassRenderingConfig.GrassTypeConfig, Matrix4x4[]>>> renderingConfigs = new List<KeyValuePair<GrassRenderingConfig, Dictionary<GrassRenderingConfig.GrassTypeConfig ,Matrix4x4[]>>>();
         Matrix4x4[] matrix4X4s;
         [SerializeField] ShadowCastingMode ShadowCastingMode = ShadowCastingMode.Off;
 
         // Update is called once per frame
         void Update() {
-            foreach(KeyValuePair<GrassRenderingConfig, Matrix4x4[]> keyValue in renderingConfigs) {
-                Graphics.DrawMeshInstanced(keyValue.Key.GrassMesh, 0, keyValue.Key.GrassMaterial, keyValue.Value, keyValue.Value.Length, null, ShadowCastingMode);
+            foreach(var keyValue in renderingConfigs) {
+                GrassRenderingConfig config = keyValue.Key;
+                foreach (var type in config.GrassTypes) {
+                    Graphics.DrawMeshInstanced(type.GrassMesh, 0, type.GrassMaterial, keyValue.Value[type], keyValue.Value[type].Length, null, ShadowCastingMode);
+                }
             }
         }
 
@@ -23,11 +26,14 @@ namespace Kellojo.Environment {
         /// </summary>
         /// <param name="config"></param>
         /// <param name="matrix4X4s"></param>
-        public void AddRenderingConfig(GrassRenderingConfig config, Matrix4x4[] matrix4X4s) {
-            renderingConfigs.Add(new KeyValuePair<GrassRenderingConfig, Matrix4x4[]>(config, matrix4X4s));
+        public void AddRenderingConfig(GrassRenderingConfig config, Dictionary<GrassRenderingConfig.GrassTypeConfig, Matrix4x4[]> positionMap) {
+            foreach (var type in config.GrassTypes) {
+                var keyValuePair = new KeyValuePair<GrassRenderingConfig, Dictionary<GrassRenderingConfig.GrassTypeConfig, Matrix4x4[]>>(config, positionMap);
+                renderingConfigs.Add(keyValuePair);
+            }
         }
 
-        public static Matrix4x4[] GeneratePositionsForHexagon(GrassRenderingConfig config, MeshCollider meshCollider) {
+        public static Matrix4x4[] GeneratePositionsForHexagon(GrassRenderingConfig.GrassTypeConfig config, MeshCollider meshCollider) {
             Matrix4x4[] matrix4X4s = new Matrix4x4[config.Count];
 
             for (int i = 0; i < config.Count; i++) {

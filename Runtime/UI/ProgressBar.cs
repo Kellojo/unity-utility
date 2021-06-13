@@ -27,7 +27,7 @@ namespace Kellojo.UI {
         Color _defaultColor;
 
         public UnityEvent OnPress;
-        Button InnerButton;
+        UnityEngine.UI.Button InnerButton;
 
         public int startValue {
             set {
@@ -61,7 +61,7 @@ namespace Kellojo.UI {
 
         private void Awake() {
             _defaultColor = progressBar.color;
-            InnerButton = GetComponentInChildren<Button>();
+            InnerButton = GetComponentInChildren<UnityEngine.UI.Button>();
             UpdateProgressBar();
             InnerButton.onClick.AddListener(OnPress.Invoke);
         }

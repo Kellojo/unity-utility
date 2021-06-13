@@ -37,13 +37,38 @@ namespace Kellojo.UI {
             }
         }
 
+        [SerializeField] bool blurBackground = true;
+        public bool BlurBackground {
+            get {
+                return blurBackground;
+            }
+            set {
+                blurBackground = value;
+            }
+        }
+
+        [SerializeField] bool closableViaEscape = true;
+        public bool ClosableViaEscape {
+            get {
+                return closableViaEscape;
+            }
+            set {
+                closableViaEscape = value;
+            }
+        }
+
         protected void Awake() {
             CanvasGroup = GetComponent<CanvasGroup>();
             ScaleAnimationTarget = GetComponent<RectTransform>();
             Close(true);
 
             inputActions = new GenericInput();
-            inputActions.UserInterface.Close.performed += context => { Close(); };
+            inputActions.UserInterface.Close.performed += context => {
+                if (ClosableViaEscape) {
+                    Close();
+                }
+
+            };
         }
 
         protected void OnEnable() {
@@ -65,8 +90,7 @@ namespace Kellojo.UI {
             EventBus.Publish(new MenuClosedMessage());
             OnClose?.Invoke();
             CanvasGroup.Hide(withoutAnimation);
-            ScaleAnimationTarget.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.25f);
-            isOpen = false;
+            ScaleAnimationTarget.DOScale(new Vector3(1.05f, 1.05f, 1.05f), 0.25f).OnComplete(() => { isOpen = false; });
         }
         /// <summary>
         /// Toggles the menu visibility
