@@ -88,7 +88,7 @@ namespace Kellojo.SaveSystem {
                 saveGame.gameState[saveable.Id] = saveable.CaptureState();
             }
         }
-        void RestoreState(SaveGame saveGame) {
+        public static void RestoreState(SaveGame saveGame) {
             foreach (var saveable in FindObjectsOfType<SaveableEntity>()) {
 
                 if (saveGame.gameState.TryGetValue(saveable.Id, out object value)) {
